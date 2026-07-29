@@ -4,9 +4,15 @@ public class Box<T> {
 
     private T value;
 
-    // TODO: constructor
+    public Box(T value) {
+        this.value = value;
+    }
 
-    // TODO: T get()
+    public T get() {
+        return value;
+    }
 
-    // TODO: void set(T value)
+    public void set(T value) {
+        this.value = value;
+    }
 }
