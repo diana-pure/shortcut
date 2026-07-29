@@ -34,3 +34,16 @@
 /jvm-core/generics/generics-task-2/target/surefire-reports/TEST-com.example.generics.task2.Task2Test.xml
 /jvm-core/generics/generics-task-3/target/surefire-reports/TEST-com.example.generics.task3.Task3Test.xml
 /jvm-core/generics/generics-task-4/target/surefire-reports/TEST-com.example.generics.task4.Task4Test.xml
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/AdminUser.class
+/jvm-core/generics/generics-task-5/target/surefire-reports/com.example.generics.task5.RepositoryUtilsTest.txt
+/jvm-core/generics/generics-task-5/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/jvm-core/generics/generics-task-5/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+/jvm-core/generics/generics-task-5/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/jvm-core/generics/generics-task-5/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/Main.class
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/Repository.class
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/RepositoryUtils.class
+/jvm-core/generics/generics-task-5/target/test-classes/com/example/generics/task5/RepositoryUtilsTest.class
+/jvm-core/generics/generics-task-5/target/surefire-reports/TEST-com.example.generics.task5.RepositoryUtilsTest.xml
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/User.class
+/jvm-core/generics/generics-task-5/target/classes/com/example/generics/task5/UserRepository.class
