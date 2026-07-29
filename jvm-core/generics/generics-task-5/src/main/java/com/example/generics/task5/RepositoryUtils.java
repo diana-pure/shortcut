@@ -1,6 +1,9 @@
 package com.example.generics.task5;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 /**
  * Утилиты для задания.
@@ -9,7 +12,8 @@ import java.util.List;
  */
 public final class RepositoryUtils {
 
-    private RepositoryUtils() { }
+    private RepositoryUtils() {
+    }
 
     /**
      * Демонстрация проблемы {@code List<?>}.
@@ -25,8 +29,8 @@ public final class RepositoryUtils {
         if (entities == null) throw new IllegalArgumentException("entities must not be null");
 
         // Примеры, которые НЕ компилируются (оставлены как комментарии):
-        // repo.save(entities.get(0));            // Object cannot be converted to User
-        // entities.add(new User("x", "y"));      // capture of ?
+//         repo.save(entities.get(0));            // Object cannot be converted to User
+//         entities.add(new User("x", "y"));      // capture of ?
 
         // Этот метод годится разве что для логирования:
         System.out.println("saveAllWildcard: " + entities.size() + " elements");
@@ -41,9 +45,11 @@ public final class RepositoryUtils {
      *
      * <p>Подсказка: список здесь "producer" (мы читаем из него элементы).
      */
-    public static void saveAll(Repository<User> repo, /* TODO */ List<? extends User> entities) {
-        // TODO: Реализовать
-        throw new UnsupportedOperationException("TODO: implement saveAll");
+    public static void saveAll(Repository<User> repo, List<? extends User> entities) {
+        if (isNull(entities)) throw new IllegalArgumentException("entities must not be null");
+        for (User e : entities) {
+            repo.save(e);
+        }
     }
 
     /**
@@ -52,9 +58,11 @@ public final class RepositoryUtils {
      * <p>Подсказка: если параметр должен принимать {@code List<User>} и {@code List<AdminUser>},
      * то используйте wildcard с {@code extends}.
      */
-    public static User getFirstUser(/* TODO */ List<? extends User> users) {
-        // TODO: Реализовать
-        throw new UnsupportedOperationException("TODO: implement getFirstUser");
+    public static User getFirstUser(List<? extends User> users) {
+        if (isNull(users) || users.isEmpty()) {
+            throw new IllegalArgumentException("users list is null or empty");
+        }
+        return users.get(0);
     }
 
     /**
@@ -65,8 +73,10 @@ public final class RepositoryUtils {
      *
      * <p>Метод должен позволять передать и {@code List<User>}, и {@code List<Object>}.
      */
-    public static void addDefaultUser(/* TODO */ List<? super User> sink) {
-        // TODO: Реализовать
-        throw new UnsupportedOperationException("TODO: implement addDefaultUser");
+    public static void addDefaultUser(List<? super User> sink) {
+        if (isNull(sink)) {
+            sink = new ArrayList<>();
+        }
+        sink.add(new User("default", "default"));
     }
 }

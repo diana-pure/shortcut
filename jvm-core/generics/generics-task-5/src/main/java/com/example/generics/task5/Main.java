@@ -17,11 +17,11 @@ public class Main {
         );
 
         // TODO: после реализации RepositoryUtils.saveAll(...) это должно работать
-        // RepositoryUtils.saveAll(repo, admins);
+         RepositoryUtils.saveAll(repo, admins);
 
         List<Object> sink = new ArrayList<>();
         // TODO: после реализации RepositoryUtils.addDefaultUser(...) это должно работать
-        // RepositoryUtils.addDefaultUser(sink);
+         RepositoryUtils.addDefaultUser(sink);
 
         System.out.println("Done");
     }
