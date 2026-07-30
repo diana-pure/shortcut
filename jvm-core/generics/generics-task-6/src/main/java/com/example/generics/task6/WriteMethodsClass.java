@@ -42,4 +42,13 @@ public class WriteMethodsClass {
 //        list.add(new AdminUser(""));
         list.add(new SuperAdmin("")); //can add lower bound SuperAdmin or lower types, ancestors
     }
+
+    // param can be List<SuperAdmin>, List<AdminUser>, List<User>, List<Object>
+    public static void add(List<?> list) {
+//        list.get(0); //can only get Object
+//        list.add(new Object()); //can not add any type even Object
+//        list.add(new User(""));
+//        list.add(new AdminUser(""));
+//        list.add(new SuperAdmin(""));
+    }
 }

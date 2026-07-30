@@ -50,6 +50,12 @@ public class Main {
 //        ReadMethodsClass.printAdmin(users);   can not pass user
 //        ReadMethodsClass.printSuperAdmin(admins); can not pass admin
         ReadMethodsClass.printSuperAdmin(supers);
+
+        //print any that extends Object
+        ReadMethodsClass.print(objects);
+        ReadMethodsClass.print(users);
+        ReadMethodsClass.print(admins);
+        ReadMethodsClass.print(supers);
     }
 
     private static void writePECS() {
@@ -72,5 +78,11 @@ public class Main {
         WriteMethodsClass.addSuperAdmin(users);   // add SuperAdmin to users
         WriteMethodsClass.addSuperAdmin(admins);  // add SuperAdmin to admins
         WriteMethodsClass.addSuperAdmin(supers);  // add SuperAdmin to supers
+
+
+        WriteMethodsClass.add(objects); // can pass any type, but useless, no type can be added
+        WriteMethodsClass.add(users);
+        WriteMethodsClass.add(admins);
+        WriteMethodsClass.add(supers);
     }
 }

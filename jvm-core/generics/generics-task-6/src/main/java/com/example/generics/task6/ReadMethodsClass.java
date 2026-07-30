@@ -56,4 +56,15 @@ public class ReadMethodsClass {
         PS.println(superAdmin.getRole());
         PS.println(superAdmin.whenExpired());
     }
+
+    // param can be List<Object>, List<User>, List<AdminUser>, List<SuperAdmin>
+    // same like printObject
+    public static void print(List<?> list) {
+        Object obj = list.get(0); //only Object can be gotten
+        PS.println(obj.toString());
+
+//        User user = list.get(0);
+//        AdminUser admin = list.get(0);
+//        SuperAdmin superAdmin = list.get(0);
+    }
 }
