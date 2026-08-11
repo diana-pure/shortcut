@@ -1,4 +1,4 @@
-package task2;
+package com.example.streams.task2;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
