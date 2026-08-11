@@ -1,0 +1,75 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements. See NOTICE file for copyright info.
+# Maven Wrapper bootstrap script for POSIX (Linux/macOS).
+# При первом запуске автоматически скачивает Maven 3.9.6.
+# ----------------------------------------------------------------------------
+
+set -e
+
+# Находим корень проекта (директорию с .mvn/)
+if [ -z "$MAVEN_BASEDIR" ]; then
+  MAVEN_BASEDIR=$(pwd)
+  while [ "$MAVEN_BASEDIR" != "/" ]; do
+    if [ -d "$MAVEN_BASEDIR/.mvn" ]; then break; fi
+    MAVEN_BASEDIR=$(dirname "$MAVEN_BASEDIR")
+  done
+fi
+
+MAVEN_WRAPPER_PROPERTIES="$MAVEN_BASEDIR/.mvn/wrapper/maven-wrapper.properties"
+MAVEN_WRAPPER_JAR="$MAVEN_BASEDIR/.mvn/wrapper/maven-wrapper.jar"
+
+# Читаем URL дистрибутива из properties-файла
+DISTRIBUTION_URL=$(sed -n 's/^distributionUrl=//p' "$MAVEN_WRAPPER_PROPERTIES" | tr -d '\r')
+WRAPPER_URL=$(sed -n 's/^wrapperUrl=//p' "$MAVEN_WRAPPER_PROPERTIES" | tr -d '\r')
+
+# Определяем кеш-директорию
+MAVEN_USER_HOME="${MAVEN_USER_HOME:-$HOME/.m2}"
+DIST_NAME=$(basename "$DISTRIBUTION_URL" -bin.zip)
+MAVEN_CACHE="$MAVEN_USER_HOME/wrapper/dists/$DIST_NAME"
+MAVEN_ZIP="$MAVEN_CACHE/$DIST_NAME-bin.zip"
+
+# Скачиваем wrapper JAR если нужно
+if [ ! -f "$MAVEN_WRAPPER_JAR" ]; then
+  echo "Downloading Maven Wrapper JAR..."
+  mkdir -p "$(dirname "$MAVEN_WRAPPER_JAR")"
+  if command -v curl > /dev/null 2>&1; then
+    curl -fsSL -o "$MAVEN_WRAPPER_JAR" "$WRAPPER_URL"
+  elif command -v wget > /dev/null 2>&1; then
+    wget -q -O "$MAVEN_WRAPPER_JAR" "$WRAPPER_URL"
+  else
+    echo "ERROR: curl or wget required to download Maven Wrapper" >&2; exit 1
+  fi
+fi
+
+# Скачиваем и распаковываем Maven если ещё нет
+# ZIP распаковывается в apache-maven-X.Y.Z/ внутри кеша — ищем mvn через find
+MAVEN_CMD=$(find "$MAVEN_CACHE" -name mvn -type f 2>/dev/null | head -1)
+if [ -z "$MAVEN_CMD" ]; then
+  echo "Downloading Maven $DIST_NAME..."
+  mkdir -p "$MAVEN_CACHE"
+  if command -v curl > /dev/null 2>&1; then
+    curl -fsSL -o "$MAVEN_ZIP" "$DISTRIBUTION_URL"
+  elif command -v wget > /dev/null 2>&1; then
+    wget -q -O "$MAVEN_ZIP" "$DISTRIBUTION_URL"
+  else
+    echo "ERROR: curl or wget required to download Maven" >&2; exit 1
+  fi
+  echo "Extracting..."
+  unzip -q "$MAVEN_ZIP" -d "$MAVEN_CACHE"
+  rm -f "$MAVEN_ZIP"
+  MAVEN_CMD=$(find "$MAVEN_CACHE" -name mvn -type f | head -1)
+  if [ -z "$MAVEN_CMD" ]; then
+    echo "ERROR: mvn not found after extraction" >&2; exit 1
+  fi
+  echo "Maven ready: $MAVEN_CMD"
+fi
+
+# Проверяем Java
+if [ -z "$JAVA_HOME" ] && ! command -v java > /dev/null 2>&1; then
+  echo "ERROR: JAVA_HOME is not set and java not found in PATH" >&2; exit 1
+fi
+
+exec "$MAVEN_CMD" "$@"
+
