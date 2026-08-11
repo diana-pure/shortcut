@@ -1,5 +1,6 @@
 .idea/
 **/target/
+**/maven-wrapper.jar
 *.class
 *.iml
 config.toml
