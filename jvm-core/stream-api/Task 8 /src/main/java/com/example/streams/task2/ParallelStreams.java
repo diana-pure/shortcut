@@ -2,6 +2,9 @@ package com.example.streams.task2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 public class ParallelStreams {
 
@@ -9,8 +12,10 @@ public class ParallelStreams {
      * Возвращает сумму всех чисел, используя parallelStream().
      */
     public long parallelSum(List<Long> numbers) {
-        // TODO: numbers.parallelStream().reduce(0L, Long::sum)
-        throw new UnsupportedOperationException("Not implemented");
+        if (isNull(numbers)) {
+            throw new IllegalArgumentException("Numbers is null");
+        }
+        return numbers.parallelStream().mapToLong(Long::longValue).sum();
     }
 
     /**
@@ -18,31 +23,35 @@ public class ParallelStreams {
      * Использовать parallelStream().
      */
     public List<String> parallelFilter(List<String> words, int minLength) {
-        // TODO: parallelStream().filter(...).sorted().collect(Collectors.toList())
-        throw new UnsupportedOperationException("Not implemented");
+        if (isNull(words)) {
+            throw new IllegalArgumentException("Words is null");
+        }
+        return words.parallelStream().filter(word -> word.length() > minLength).sorted().toList();
     }
 
     /**
      * Возвращает список чисел строго больше minValue, используя parallelStream() + collect().
      * collect() безопасен в параллельном потоке: каждый поток накапливает результат
      * независимо, а JVM объединяет частичные результаты без race condition.
-     *
+     * <p>
      * Реализуйте этот метод и сравните надёжность с isSafeToUseSharedList().
      */
     public List<Integer> safeParallelCollect(List<Integer> numbers, int minValue) {
-        // TODO: numbers.parallelStream().filter(n -> n > minValue).collect(Collectors.toList())
-        throw new UnsupportedOperationException("Not implemented");
+        if (isNull(numbers)) {
+            throw new IllegalArgumentException("Numbers is null");
+        }
+        return numbers.parallelStream().filter(number -> number > minValue).toList();
     }
 
     /**
      * ВНИМАНИЕ: этот метод содержит намеренную ошибку — небезопасное изменение
      * общей коллекции в параллельном потоке.
-     *
+     * <p>
      * ArrayList не является потокобезопасной структурой данных.
      * При параллельном добавлении элементов возникает race condition:
      * несколько потоков могут одновременно записывать в одно место массива,
      * что приводит к потере элементов или ArrayIndexOutOfBoundsException.
-     *
+     * <p>
      * ПРАВИЛЬНОЕ решение: использовать collect() вместо forEach() + add().
      */
     public boolean isSafeToUseSharedList(List<Integer> numbers) {
