@@ -1,5 +1,6 @@
 package com.skills.gc;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,21 +15,23 @@ import java.util.List;
 public class EventBus {
 
     // TODO: здесь скрыта утечка памяти. Найдите её и объясните механизм.
-    private static final List<OrderListener> listeners = new ArrayList<>();
+    private static List<WeakReference<OrderListener>> listeners = new ArrayList<>();
 
     /**
      * Подписать слушателя на события о заказах.
      */
     public static void subscribe(OrderListener listener) {
-        listeners.add(listener);
+        listeners.add(new WeakReference<>(listener));
     }
 
     /**
      * Разослать событие всем подписанным слушателям.
      */
     public static void publish(Order order) {
-        for (OrderListener listener : listeners) {
-            listener.onOrder(order);
+        for (WeakReference<OrderListener> listener : listeners) {
+            OrderListener l = listener.get();
+            if(l == null) continue;
+            l.onOrder(order);
         }
     }
 
