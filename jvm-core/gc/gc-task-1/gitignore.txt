@@ -1,0 +1,29 @@
+# ---- Артефакты сборки Maven ----
+target/
+*.class
+
+# ---- Heap dump (создаётся при OOM в задании 1) ----
+*.hprof
+
+# ---- GC логи (генерируются при запуске) ----
+*.log
+gc*.log
+
+# ---- IDE ----
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+*.eclipse
+
+# ---- macOS ----
+.DS_Store
+
+# ---- Maven wrapper JAR (скачивается автоматически) ----
+# Раскомментируй если хочешь исключить JAR из репозитория.
+# По умолчанию JAR коммитится — это стандартная практика для wrapper.
+# !.mvn/wrapper/maven-wrapper.jar
+
