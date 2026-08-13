@@ -38,6 +38,8 @@ public class Application {
                 EventBus.publish(order);
             }
 
+            EventBus.unsubscribe(processor);
+
             // processor выходит из области видимости — "должен умереть"
             // Но так ли это на самом деле?
 

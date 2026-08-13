@@ -15,33 +15,26 @@ import java.util.List;
  */
 public class EventBus {
 
-    // TODO: здесь скрыта утечка памяти. Найдите её и объясните механизм.
-    private static List<SoftReference<OrderListener>> listeners = new ArrayList<>();
+    private static final List<OrderListener> listeners = new ArrayList<>();
 
     /**
      * Подписать слушателя на события о заказах.
      */
     public static void subscribe(OrderListener listener) {
-        listeners.add(new SoftReference<>(listener));
+        listeners.add(listener);
     }
 
     /**
      * Разослать событие всем подписанным слушателям.
      */
     public static void publish(Order order) {
-        for (SoftReference<OrderListener> listener : listeners) {
-            OrderListener l = listener.get();
-            if(l == null) continue;
-            l.onOrder(order);
+        for (OrderListener listener : listeners) {
+            listener.onOrder(order);
         }
     }
 
-    /**
-     * TODO (Задание 6): реализовать явную отписку слушателя.
-     */
     public static void unsubscribe(OrderListener listener) {
-        // TODO: реализовать
-        throw new UnsupportedOperationException("Not implemented yet");
+        listeners.remove(listener);
     }
 }
 
